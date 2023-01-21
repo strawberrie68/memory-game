@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
-  <title>Memory game</title>
-  <link rel="stylesheet" href="style.css">
-  
-
-</head>
-
-<body>
-  
-
-  <main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory game</title>
     
-    <div class="heading"> Tiles : </div>
-    <div class="level">Level : </div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-    <div id="mainBox"></div>
+  <body>
+    <main>
+      <div class="heading">
+        <div id="countdown"></div>
+        <div class="tileCound">Tiles :</div>
+        <div class="level">Level : </div>
+      </div>
+   
+      <div id="mainBox"></div>
 
-    <button class="btn">Start</button>
+      <button class="btn startBtn">Start</button>
 
-    <button class="btn resetBtn">Reset</button>
+      <button class="btn resetBtn">Reset</button>
 
-  </main>
+      <button class="btn doneBtn">Done</button>
+    </main>
 
-
-  <script src="index.js"></script>
- 
-
-
-</body>
-
+    <script src="index.js"></script>
+  </body>
 </html>
+
