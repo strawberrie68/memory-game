@@ -75,6 +75,7 @@ function mark(event) {
     if(randomArray.sort() !== playerArray.sort()) {
       console.log(randomArray)
       console.log(playerArray)
+
       
       //I clicked the right tiles yet it is still rejecting?
       //why is this happening
@@ -85,6 +86,36 @@ function mark(event) {
     }
   }
 }
+
+function areEqual (playerArray, randomArray){
+  let N = playerArray.length;
+  let M = randomArray.length;
+  
+  if(N != M){
+    return false
+  }
+  if( N == M){
+    randomArray.sort();
+    playerArray.sort();
+
+  for (let i = 0; i<N; i++){
+    if(playerArray[i] != randomArray[i]){
+      return false
+    }
+  }
+  return true
+
+  }
+  
+}
+if( playerArray.length == randomArray.length){
+  if (areEqual(playerArray, randomArray)){
+    console.log("Match")
+  }else{
+    console.log("No Match")
+  }
+}
+
 //need to store the random array in the local storage first
 
 
