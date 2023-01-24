@@ -117,11 +117,12 @@ startBtn.addEventListener("click", randomizer);
 
 
 function checkCounter(){
+  displayTiles()
      if(setCount == undefined){
         setCount = setInterval(countdown, 1000);
      }
 
-     displayTiles()
+    //  displayTiles()
    
     
 }
@@ -200,6 +201,7 @@ function checkAnswers(){
   }
   if(allAnswers.includes('false')){
     console.log('lose')
+    document.querySelector("#countdown").innerHTML = `You Lose`;
    
 
   }else{
