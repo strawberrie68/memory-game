@@ -50,3 +50,7 @@ main {
 .yellow{
   background-color:yellow;
 }
+
+.grey {
+  filter: grayscale(.5)
+}
