@@ -1,6 +1,10 @@
 let mainBox = document.querySelector("#mainBox");
 let sizeOfGrid = 35;
-let level = 1; 
+// let level = 1; 
+
+
+localStorage.setItem("level", 1);
+let level = localStorage.getItem("level");
 document.querySelector(".level").innerHTML= ` Level:  ${level}`
 // create tiles
 //  I gave an id to each div tag
@@ -14,7 +18,9 @@ for (let i = 0; i < sizeOfGrid; i++) {
 
 //the shorest array length is 5 (level 1)
 //the longest array length is 20 (level 16)
-let tiles = 5
+// let tiles = 5
+localStorage.setItem("tiles", 5);
+let tiles = localStorage.getItem("tiles");
 document.querySelector(".tileCound").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
 
 
@@ -25,23 +31,36 @@ let playerArray = [];
 // randomly select numbers. (if the grid has 20 tiles, the range of number becomes 0 - 20)
 
 
+//when user click start
+//items are not clickable until
+//randomizer will run
+
+
 let count = 0;
-while (count < tiles) {
-  // a number will be randomly picked nth times and store them in an array 
-  // each title has an unique number so that we can keep track of which tile is clicked 
-  let randomNumber = Math.floor(Math.random() * sizeOfGrid)
-  if (!randomArray.includes(randomNumber)) {
-    randomArray.push(randomNumber)
-    count++
+function randomizer(){
+  while (count < tiles) {
+    // a number will be randomly picked nth times and store them in an array 
+    // each title has an unique number so that we can keep track of which tile is clicked 
+    let randomNumber = Math.floor(Math.random() * sizeOfGrid)
+    if (!randomArray.includes(randomNumber)) {
+      randomArray.push(randomNumber)
+      count++
+    }
+
+  //   console.log("randomArray is ", randomArray)
   }
 
-//   console.log("randomArray is ", randomArray)
 }
+
+ 
+
+
 
 
 // add an event listener to keep track of which titles  player clicked 
 
 let tracker = 0;
+let boxes = document.querySelectorAll(".box")
 function mark(event) {
   // store selected titles in an array 
   // * a player shouldn't be able to add more than the number of tiles
@@ -50,16 +69,18 @@ function mark(event) {
     playerArray.push(Number(event.target.id))
     // console.log("tracker is ", tracker)
     // console.log("playerArray ", playerArray)
-    event.target.style.backgroundColor = "yellow"
+    // event.target.style.backgroundColor = "yellow"
+    event.target.classList.add("yellow")
     document.querySelector(".tileCound").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
     tracker++
     // console.log("tracker is ", tracker, "tiles ", tiles)
   }
-
+  
   if (tracker === tiles) {
-    let boxes = document.querySelectorAll(".box")
+    
     boxes.forEach((box) => {
-      box.style.filter = "grayscale(0.5)"
+      // box.style.filter = "grayscale(0.5)"
+      box.classList.add("grey")
     })
 
 
@@ -92,14 +113,16 @@ let startBtn = document.querySelector(".startBtn");
 
 
 startBtn.addEventListener("click", checkCounter);
+startBtn.addEventListener("click", randomizer);
 
 
 function checkCounter(){
+  displayTiles()
      if(setCount == undefined){
         setCount = setInterval(countdown, 1000);
      }
 
-     displayTiles()
+    //  displayTiles()
    
     
 }
@@ -157,7 +180,7 @@ function removeTileColor(){
 
 
 
-console.log(randomArray)
+
 
 //4. the computer waits for the player to click 5 tiles
 
@@ -178,16 +201,49 @@ function checkAnswers(){
   }
   if(allAnswers.includes('false')){
     console.log('lose')
+    document.querySelector("#countdown").innerHTML = `You Lose`;
    
 
   }else{
     console.log('level up')
     console.log(allAnswers)
-    level = level + 1
+    level = Number(level) + 1
     document.querySelector(".level").innerHTML= ` Level:  ${level}`
+    tiles = Number(tiles) + 1
+    document.querySelector(".tileCound").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+    
+    //reset colour of tiles remove class yellow
+    resetAll();
+    randomizer();
+    count = 0;
+    tracker = 0;
+    counter = 5;
+    setCount= undefined;
+    displayTiles();
+    checkCounter();
+    
+  
+
   }}
-//it works for now hahaha
-//we can fix it later if it doenst
+
+}
+
+
+
+
+function resetAll (){
+  boxes.forEach((box) => {
+    box.classList.remove("yellow")
+    box.classList.remove("grey")
+    
+    
+})
+    randomArray = [];
+    playerArray = [];
+    count = 0
+    console.log(randomArray)
+    console.log(playerArray)
+  
 }
 
 
