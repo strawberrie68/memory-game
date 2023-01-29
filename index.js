@@ -1,4 +1,5 @@
 let mainBox = document.querySelector("#mainBox");
+mainBox.style.pointerEvents = "none";
 let sizeOfGrid = 35;
 // let level = 1; 
 
@@ -18,17 +19,16 @@ for (let i = 0; i < sizeOfGrid; i++) {
 
 //the shorest array length is 5 (level 1)
 //the longest array length is 20 (level 16)
-// let tiles = 5
-localStorage.setItem("tiles", 5);
+let numOftiles = 5
+localStorage.setItem("tiles", numOftiles);
 let tiles = localStorage.getItem("tiles");
-document.querySelector(".tileCound").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
 
 
 // rendomly choose numbers. *Make sure that there is no duplicate numbers
 let randomArray = [];
 let playerArray = [];
-// console.log(Math.floor(Math.random() * 10))
-// randomly select numbers. (if the grid has 20 tiles, the range of number becomes 0 - 20)
+
 
 
 //when user click start
@@ -37,6 +37,7 @@ let playerArray = [];
 
 
 let count = 0;
+
 function randomizer(){
   while (count < tiles) {
     // a number will be randomly picked nth times and store them in an array 
@@ -46,15 +47,11 @@ function randomizer(){
       randomArray.push(randomNumber)
       count++
     }
+    checkCounter()
 
-  //   console.log("randomArray is ", randomArray)
   }
 
 }
-
- 
-
-
 
 
 // add an event listener to keep track of which titles  player clicked 
@@ -63,88 +60,65 @@ let tracker = 0;
 let boxes = document.querySelectorAll(".box")
 function mark(event) {
   // store selected titles in an array 
-  // * a player shouldn't be able to add more than the number of tiles
+  // player shouldn't be able to add more than the number of tiles
 
   if (!playerArray.includes(event.target.id) && tracker < tiles) {
-    playerArray.push(Number(event.target.id))
-    // console.log("tracker is ", tracker)
-    // console.log("playerArray ", playerArray)
-    // event.target.style.backgroundColor = "yellow"
+    playerArray.push((event.target.id))
     event.target.classList.add("yellow")
-    document.querySelector(".tileCound").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
+    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
     tracker++
-    // console.log("tracker is ", tracker, "tiles ", tiles)
-  }
   
-  if (tracker === tiles) {
-    
-    boxes.forEach((box) => {
-      // box.style.filter = "grayscale(0.5)"
-      box.classList.add("grey")
-    })
-
-
-    mainBox.style.pointerEvents = "none";
-
+  }else if(playerArray.includes(event.target.id)){
+ 
+    playerArray.splice(playerArray.indexOf(event.target.id), 1);
+    event.target.classList.remove("yellow");
+    tracker--
+    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
   }
+
 }
 
 
-
-
-// optional reset button
+// reset 
 
 document.querySelector(".resetBtn").addEventListener("click", () => {
+  document.querySelector('.startBtn').disabled = false;
   location.reload();
 })
 
-  // list of things we need to work on --------------
+ 
 
-//1. level 1 all five numbers will light up the respective tile all the same time for 5sec. As the level goes up, the number of tile will be incremented by 1. 
-
-// --- setInterval 
-
+//level 1 all five numbers will light up the respective tile all the same time for 5sec. As the level goes up, the number of tile will be incremented by 1. 
 
 let counter = 5 ;
 let setCount;
-
 let startBtn = document.querySelector(".startBtn");
 
 
-
-startBtn.addEventListener("click", checkCounter);
 startBtn.addEventListener("click", randomizer);
 
 
 function checkCounter(){
+  document.querySelector("#countdown").innerHTML = `Count Down:  ${counter} `;
   displayTiles()
      if(setCount == undefined){
         setCount = setInterval(countdown, 1000);
      }
 
-    //  displayTiles()
-   
-    
 }
 
 
 //2. display count down while those tiles are flashing so players know how much time left. 
 
 function countdown(){
-    // console.log(counter)
     if(counter <= 0){
-        // console.log("Times Up!")
         document.querySelector("#countdown").innerHTML = `Time's Up ! `;
        clearInterval(setCount);
        removeTileColor();
     }else{
-        document.querySelector("#countdown").innerHTML = `Count Down:  ${counter} `;
-
+        document.querySelector("#countdown").innerHTML = `Count Down:  ${counter-1} `;
         counter = counter -1 
     }
-   
-
-    
 }
 
 
@@ -152,12 +126,8 @@ function countdown(){
 function displayTiles(){
     mainBox.style.pointerEvents = "none";
     for(let i=0; i<randomArray.length; i++){
-         
-        //  console.log(document.getElementById(randomArray[i]));
          document.getElementById(randomArray[i]).classList.add("yellow")
-
     }
-    // console.log(randomArray)
 }
 
 
@@ -165,26 +135,18 @@ function displayTiles(){
 
 function removeTileColor(){
     mainBox.style.pointerEvents = "unset";
+    document.querySelector('.startBtn').disabled = true;
     for(let i=0; i<randomArray.length; i++){
-         
-       
-        document.getElementById(randomArray[i]).classList.remove("yellow")
-
+    document.getElementById(randomArray[i]).classList.remove("yellow")
    }
 }
-
-
-
-
-
-
-
-
 
 
 //4. the computer waits for the player to click 5 tiles
 
 function checkAnswers(){
+  mainBox.style.pointerEvents = "none";
+  document.querySelector('.startBtn').disabled = false;
   let allAnswers = []
     if(playerArray.length === randomArray.length){
   
@@ -193,37 +155,30 @@ function checkAnswers(){
   
   for(let i=0; i<sortedArray1.length; i++){
         if(sortedArray1[i] == sortedArray2[i] ){
-         
           allAnswers.push('true')
         }else{
           allAnswers.push('false')
         }
   }
-  if(allAnswers.includes('false')){
-    console.log('lose')
-    document.querySelector("#countdown").innerHTML = `You Lose`;
-   
 
+  if(allAnswers.includes('false')){
+    document.querySelector("#countdown").innerHTML = `You Lose`;
   }else{
-    console.log('level up')
-    console.log(allAnswers)
     level = Number(level) + 1
     document.querySelector(".level").innerHTML= ` Level:  ${level}`
     tiles = Number(tiles) + 1
-    document.querySelector(".tileCound").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+    document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+    document.querySelector("#countdown").innerHTML = `You Win!`;
     
-    //reset colour of tiles remove class yellow
-    resetAll();
-    randomizer();
-    count = 0;
-    tracker = 0;
-    counter = 5;
-    setCount= undefined;
-    displayTiles();
-    checkCounter();
-    
-  
 
+    resetAll();
+    // randomizer();
+    counter = 5;
+    tracker = 0;
+    numOftiles = numOftiles + 1;
+    setCount= undefined;
+    // displayTiles();
+    // checkCounter();
   }}
 
 }
@@ -234,16 +189,13 @@ function checkAnswers(){
 function resetAll (){
   boxes.forEach((box) => {
     box.classList.remove("yellow")
-    box.classList.remove("grey")
-    
-    
+    // box.classList.remove("grey") 
 })
+
     randomArray = [];
     playerArray = [];
     count = 0
-    console.log(randomArray)
-    console.log(playerArray)
-  
+   
 }
 
 
