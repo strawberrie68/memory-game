@@ -80,17 +80,32 @@ function mark(event) {
     document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
   }
 
+  if(tracker == tiles){
+    checkAnswers()
+       
+  }
+
 }
 
 
 // reset 
 
-document.querySelector(".resetBtn").addEventListener("click", () => {
-  document.querySelector('.startBtn').disabled = false;
+document.querySelectorAll('.resetBtn').forEach(x=>{
+    x.addEventListener('click', ()=>{
+      document.querySelector('.startBtn').disabled = false;
   
 
-  location.reload();
+      location.reload();
+
+    })
 })
+
+// document.querySelector(".resetBtn").addEventListener("click", () => {
+//   document.querySelector('.startBtn').disabled = false;
+  
+
+//   location.reload();
+// })
 
  
 
@@ -118,7 +133,7 @@ function checkCounter(){
 
 function countdown(){
     if(counter <= 0){
-        document.querySelector("#countdown").innerHTML = `Time's Up ! `;
+        document.querySelector("#countdown").innerHTML = `Select Tiles! `;
        clearInterval(setCount);
        removeTileColor();
     }else{
@@ -204,7 +219,7 @@ function resetAll (){
     randomArray = [];
     playerArray = [];
     count = 0
-    startBtn.innerHTML = 'play next level'
+    startBtn.innerHTML = 'Next level'
    
 }
 
@@ -213,8 +228,8 @@ function resetAll (){
 
 //5. Have a button "done" when the player finished selecting tiles 
 
-let doneBtn = document.querySelector(".doneBtn");
-doneBtn.addEventListener("click",checkAnswers)
+// let doneBtn = document.querySelector(".doneBtn");
+// doneBtn.addEventListener("click",checkAnswers)
 
 //Things to Do
 
