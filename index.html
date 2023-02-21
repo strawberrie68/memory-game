@@ -10,35 +10,55 @@
   </head>
 
   <body>
-    <main>
-      <div id="#charaterContainer">
+
+
+    <h1 class="title">Memory Game</h1>
+
+  
+   
+   <div id="#charaterContainer">
+    
+
+  
+
+<div class="bigBox">
+ 
+    <div class="headerBox">
       
       <div class="heading">
-       
-        <div class="tileCount">Tiles :</div>
-        <div class="level">Level : </div>
-      </div>
-      <div id="countdown"> &nbsp;</div>
-      <button id="initalStart" onclick="startSequence()">Start Game</button>
+          <div class="tileCount">Tiles :</div>
+          <div class="level">Level : </div>
+     </div>
+     <div id="countdown"> &nbsp;</div>
       <div id="gameOver"></div>
-      
-      <div id="mainBox"></div>
-      
-      
-
-      <button class="btn startBtn">Start</button>
-
+     <div class="btns-phone">
+       <button class="btn resetBtn">Reset</button>
+ 
+       <!-- <button class="btn doneBtn">Done</button> -->
+ 
+     </div>
+   </div>
+    
+      <div id="mainBox">
+        <button class="btn startBtn">Start</button>
+        <h2 class="winOrLose"></h2>
+      </div> 
+ 
+      <!-- <button class="btn startBtn">Start</button> -->
+    
+    </div>
+ 
+    <div class="btns-desk-top">
       <button class="btn resetBtn">Reset</button>
-
-      <button class="btn doneBtn">Done</button>
       
-      
-         <div id="animate">
+       <div id="animate">
           <div id="textBubble"></div>
          </div>
        </div>
-    </main>
+    </div>
 
+
+    <div class="glass"></div>
     <script src="index.js"></script>
   </body>
 </html>
