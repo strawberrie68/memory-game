@@ -1,5 +1,5 @@
 let mainBox = document.querySelector("#mainBox");
-mainBox.style.pointerEvents = "none";
+// mainBox.style.pointerEvents = "none";
 let sizeOfGrid = 35;
 // let level = 1; 
 let background = new Audio('/sounds/background.mp3');
@@ -38,16 +38,25 @@ let playerArray = [];
 //when user click start
 //items are not clickable until
 //randomizer will run
+let booSound = new Audio('/sounds/booSound.mp3');
+booSound.loop = false;
+
+let clickSound = new Audio('/sounds/click.mp3');
+clickSound.loop = false 
 
 
 let count = 0;
 
 function randomizer(){
   booSound.play();
+  startBtn.classList.add('displayNone');
+
   while (count < tiles) {
+    
     // a number will be randomly picked nth times and store them in an array 
     // each title has an unique number so that we can keep track of which tile is clicked 
     let randomNumber = Math.floor(Math.random() * sizeOfGrid)
+   
     if (!randomArray.includes(randomNumber)) {
       randomArray.push(randomNumber)
       count++
@@ -81,25 +90,35 @@ function mark(event) {
     document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
   }
 
+  if(tracker == tiles){
+    checkAnswers()
+       
+  }
+
 }
 
 
 // reset 
 
-document.querySelector(".resetBtn").addEventListener("click", () => {
-  document.querySelector('.startBtn').disabled = false;
 
-  //might need to get ride of reload -> as it might not work
-  location.reload();
+document.querySelectorAll('.resetBtn').forEach(x=>{
+    x.addEventListener('click', ()=>{
+      document.querySelector('.startBtn').disabled = false;
+  
+
+      location.reload();
+
+    })
 })
 
-let booSound = new Audio('/sounds/booSound.mp3');
-booSound.loop = false;
+// document.querySelector(".resetBtn").addEventListener("click", () => {
+//   document.querySelector('.startBtn').disabled = false;
+  
 
-let clickSound = new Audio('/sounds/click.mp3');
-clickSound.loop = false 
+//   location.reload();
+// })
 
-
+ 
 
 //level 1 all five numbers will light up the respective tile all the same time for 5sec. As the level goes up, the number of tile will be incremented by 1. 
 
@@ -126,7 +145,7 @@ function checkCounter(){
 
 function countdown(){
     if(counter <= 0){
-        document.querySelector("#countdown").innerHTML = `Time's Up ! `;
+        document.querySelector("#countdown").innerHTML = `Select Tiles! `;
        clearInterval(setCount);
        removeTileColor();
     }else{
@@ -138,7 +157,7 @@ function countdown(){
 
 
 function displayTiles(){
-    mainBox.style.pointerEvents = "none";
+    // mainBox.style.pointerEvents = "none";
     for(let i=0; i<randomArray.length; i++){
          document.getElementById(randomArray[i]).classList.add("yellow")
     }
@@ -148,8 +167,8 @@ function displayTiles(){
 //3. after 5secs the tile will go back to defualt colour 
 
 function removeTileColor(){
-    mainBox.style.pointerEvents = "unset";
-    document.querySelector('.startBtn').disabled = true;
+    // mainBox.style.pointerEvents = "unset";
+    // document.querySelector('.startBtn').disabled = true;
     for(let i=0; i<randomArray.length; i++){
     document.getElementById(randomArray[i]).classList.remove("yellow")
    }
@@ -159,8 +178,8 @@ function removeTileColor(){
 //4. the computer waits for the player to click 5 tiles
 
 function checkAnswers(){
-  mainBox.style.pointerEvents = "none";
-  document.querySelector('.startBtn').disabled = false;
+  // mainBox.style.pointerEvents = "none";
+  // document.querySelector('.startBtn').disabled = false;
   let allAnswers = []
     if(playerArray.length === randomArray.length){
   
@@ -187,6 +206,8 @@ function checkAnswers(){
     tiles = Number(tiles) + 1
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
     document.querySelector("#countdown").innerHTML = `You Win!`;
+    startBtn.classList.remove('displayNone');
+    
     
 
     resetAll();
@@ -195,6 +216,7 @@ function checkAnswers(){
     tracker = 0;
     numOftiles = numOftiles + 1;
     setCount= undefined;
+    
     // displayTiles();
     // checkCounter();
   }}
@@ -213,6 +235,7 @@ function resetAll (){
     randomArray = [];
     playerArray = [];
     count = 0
+    startBtn.innerHTML = 'Next level'
    
 }
 
@@ -221,42 +244,52 @@ function resetAll (){
 
 //5. Have a button "done" when the player finished selecting tiles 
 
-let doneBtn = document.querySelector(".doneBtn");
-doneBtn.addEventListener("click",checkAnswers)
+// let doneBtn = document.querySelector(".doneBtn");
+// doneBtn.addEventListener("click",checkAnswers)
 
+//Things to Do
 
+//show wrong and right colours on the tiles ->later if time/bored -> hard
 
-//6. compare if the tiles the player selected and randomly selected tiles are a perfect match.
+//you win or lose in middle of screen ->easy
 
-  //WRONG TILE
-//if the player click the wrong tile, the game resets
-// -> go back to level 1 
-// -> the array length is back to 0
+//get rid of the done button ->easy
 
-  //RIGHT TILE
-//if the player click all the tiles
-//-> player level up
-//-> add a level
-//-> increase the length of the array
+//use local storage ->mid
 
+//have maybe a score board -> mid
 
-//Final LVEL
+//Have all the tiles change colours as the player level up ->later if bored ->hard
+
+//Final LVEL ->mid/fun
 //If the player reach the final level level 16
 //-> games stop
 //-> pop up is shown
 //-> congrats the player
+      //->a major surprise
 //-> button for replay
 
 
-//Michelle
-//increase level
-//increase randomarray length
-//reset
 
 
-// Sachi
-// toggle tiles
-// disable to click anything before clicking the start button 
+
+//Design ideas
+
+//make title - tetris fotn with their colours
+
+//background green
+
+//tiles are yellow and glowy
+
+//pick a good colour when selected and and wrong
+
+//
+
+
+
+
+
+
 
 function ghostMoves(){
   let id = null;
