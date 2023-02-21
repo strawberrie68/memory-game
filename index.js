@@ -2,6 +2,9 @@ let mainBox = document.querySelector("#mainBox");
 mainBox.style.pointerEvents = "none";
 let sizeOfGrid = 35;
 // let level = 1; 
+let background = new Audio('/sounds/background.mp3');
+background.loop = true;
+// background.play();
 
 
 localStorage.setItem("level", 1);
@@ -40,6 +43,7 @@ let playerArray = [];
 let count = 0;
 
 function randomizer(){
+  booSound.play();
   while (count < tiles) {
     // a number will be randomly picked nth times and store them in an array 
     // each title has an unique number so that we can keep track of which tile is clicked 
@@ -89,7 +93,13 @@ document.querySelector(".resetBtn").addEventListener("click", () => {
   location.reload();
 })
 
- 
+let booSound = new Audio('/sounds/booSound.mp3');
+booSound.loop = false;
+
+let clickSound = new Audio('/sounds/click.mp3');
+clickSound.loop = false 
+
+
 
 //level 1 all five numbers will light up the respective tile all the same time for 5sec. As the level goes up, the number of tile will be incremented by 1. 
 
@@ -99,6 +109,7 @@ let startBtn = document.querySelector(".startBtn");
 
 
 startBtn.addEventListener("click", randomizer);
+
 
 
 function checkCounter(){
@@ -163,9 +174,13 @@ function checkAnswers(){
           allAnswers.push('false')
         }
   }
+  let gameOver = new Audio('/sounds/gameOver1.mp3');
+  gameOver.loop = false;
 
   if(allAnswers.includes('false')){
     document.querySelector("#countdown").innerHTML = `You Lose`;
+    gameOver.play();
+    document.getElementById("gameOver").innerHTML = "G A ME O V E R";
   }else{
     level = Number(level) + 1
     document.querySelector(".level").innerHTML= ` Level:  ${level}`
@@ -260,16 +275,41 @@ function ghostMoves(){
   }
 }
 
+
+
 function startSequence(){
   ghostMoves();
   const buttonGone = document.getElementById("initalStart")
   buttonGone.classList.add("hidden");
   const elem = document.getElementById("animate");
   setTimeout(function(){
-    elem.style.backgroundImage="url(boo-bubble.png)";
+    elem.style.backgroundImage="url(/images/boo-bubble.png)";
+    booSound.play();
   }, 500); 
    setTimeout(function(){
-  document.getElementById("textBubble").innerText = "Welcome to our game MEMORY!"
+  document.getElementById("textBubble").innerText = "Boo, did I scare you?"
+  document.body.addEventListener('click', talk)
   }, 1000); 
+ 
+}
+let clicks = 0;
+function talk(){
 
+let speech =["Welcome to our game MEMORY!","your goal is to memorize","EVERYTHING","if you don't, you lose", "click start to begin"];
+
+  if(clicks <4){
+    clicks += 1;
+    clickSound.play();
+  
+  document.getElementById("textBubble").innerText = speech[clicks];
+  }else if (clicks === 4){
+    setTimeout(function(){
+      document.getElementById("animate").style.display = "none";
+      clickSound.play();
+    }, 200); 
+  }
+  else{
+    document.getElementsByClassName("startBtn").style.backgroundColor = "red";
+  }
+  
 }

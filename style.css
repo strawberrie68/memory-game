@@ -1,12 +1,15 @@
 * {
   font-family: 'Montserrat', sans-serif;
   color: black;
+  overflow: hidden;
+
 }
 
 main {
   width: 80%;
   max-width: 800px;
   margin: 0 auto;
+
 }
 
 .heading {
@@ -96,7 +99,7 @@ main {
   width: 400px;
   height: 400px;
   position: absolute;
-  background-image: url(boo-text-empty.png);
+  background-image: url(/images/boo-text-empty.png);
   background-repeat: no-repeat;
   z-index: 100;
   right: -600px;
@@ -108,7 +111,7 @@ main {
 }
 
 #talking {
-  background-image: url(boo-bubble.png);
+  background-image: url(/images/boo-bubble.png);
 }
 
 #textBubble {
@@ -122,4 +125,12 @@ main {
   font-weight: 600;
 
 
+}
+
+#gameOver {
+  position: absolute;
+  top: 40%;
+  right: 17%;
+  font-size: 90px;
+  font-weight: 500;
 }
