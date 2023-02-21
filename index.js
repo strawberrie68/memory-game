@@ -19,6 +19,7 @@ for (let i = 0; i < sizeOfGrid; i++) {
 
 //the shorest array length is 5 (level 1)
 //the longest array length is 20 (level 16)
+//need to save the tiles to a variable-->how tho
 let numOftiles = 5
 localStorage.setItem("tiles", numOftiles);
 let tiles = localStorage.getItem("tiles");
@@ -83,6 +84,8 @@ function mark(event) {
 
 document.querySelector(".resetBtn").addEventListener("click", () => {
   document.querySelector('.startBtn').disabled = false;
+
+  //might need to get ride of reload -> as it might not work
   location.reload();
 })
 
@@ -240,3 +243,33 @@ doneBtn.addEventListener("click",checkAnswers)
 // toggle tiles
 // disable to click anything before clicking the start button 
 
+function ghostMoves(){
+  let id = null;
+  const elem = document.getElementById("animate");
+  let pos = 0;
+  clearInterval(id);
+  id = setInterval(frame, 5);
+  function frame(){
+    if( pos == 50){
+      clearInterval(id);
+    }else{
+      pos++;
+      elem.style.right = pos + "px";
+      
+    }
+  }
+}
+
+function startSequence(){
+  ghostMoves();
+  const buttonGone = document.getElementById("initalStart")
+  buttonGone.classList.add("hidden");
+  const elem = document.getElementById("animate");
+  setTimeout(function(){
+    elem.style.backgroundImage="url(boo-bubble.png)";
+  }, 500); 
+   setTimeout(function(){
+  document.getElementById("textBubble").innerText = "Welcome to our game MEMORY!"
+  }, 1000); 
+
+}

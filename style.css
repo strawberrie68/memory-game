@@ -72,3 +72,54 @@ main {
 /* .grey {
   filter: grayscale(.5)
 } */
+#initalStart{
+  position: absolute;
+  right:39%;
+  top:50%;
+  width:200px;
+  /* background-color: transparent;
+  border: transparent; */
+  color:rgb(149, 149, 149);
+  font-size: large;
+  text-shadow:black;
+  font-weight: 700;
+}
+
+#charaterContainer {
+  width: 50%;
+  height: 50%;
+  position: relative;
+
+}
+
+#animate {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  background-image: url(boo-text-empty.png);
+  background-repeat: no-repeat;
+  z-index: 100;
+  right: -600px;
+  bottom: 1px;
+}
+
+.hidden {
+  display:none;
+}
+
+#talking {
+  background-image: url(boo-bubble.png);
+}
+
+#textBubble {
+  /* background-color: black; */
+  position: absolute;
+  right: 52%;
+  top:24%;
+  width:120px;
+  height: 60px;
+  z-index: 101;
+  font-weight: 600;
+
+
+}
