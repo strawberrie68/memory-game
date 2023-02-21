@@ -239,6 +239,66 @@ body{
 
   
 }
+#initalStart{
+  position: absolute;
+  right:39%;
+  top:50%;
+  width:200px;
+  /* background-color: transparent;
+  border: transparent; */
+  color:rgb(149, 149, 149);
+  font-size: large;
+  text-shadow:black;
+  font-weight: 700;
+}
+
+#charaterContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: black ;
+  z-index: 1000; 
+
+}
+
+#animate {
+  background-image: url(/images/boo-text-empty.png);
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top:45%;
+  right:10%;
+  background-repeat: no-repeat;
+  z-index: 1000;
+}
+
+.hidden {
+  display:none;
+}
+
+#talking {
+  background-image: url(/images/boo-bubble.png);
+}
+
+#textBubble {
+  position: absolute;
+  right: 52%;
+  top:24%;
+  width:120px;
+  height: 60px;
+  z-index: 101;
+  font-weight: 600;
+
+
+}
+
+#gameOver {
+  position: absolute;
+  top: 40%;
+  right: 17%;
+  font-size: 60px;
+  font-weight: 500;
+}
 
 
 
@@ -279,65 +339,7 @@ body{
   filter: grayscale(.5)
 } */
 
-#initalStart{
-  position: absolute;
-  right:39%;
-  top:50%;
-  width:200px;
-  /* background-color: transparent;
-  border: transparent; */
-  color:rgb(149, 149, 149);
-  font-size: large;
-  text-shadow:black;
-  font-weight: 700;
-}
 
-#charaterContainer {
-  width: 50%;
-  height: 50%;
-  position: relative;
-
-}
-
-#animate {
-  width: 400px;
-  height: 400px;
-  position: absolute;
-  background-image: url(/images/boo-text-empty.png);
-  background-repeat: no-repeat;
-  z-index: 100;
-  right: -600px;
-  bottom: 1px;
-}
-
-.hidden {
-  display:none;
-}
-
-#talking {
-  background-image: url(/images/boo-bubble.png);
-}
-
-#textBubble {
-  /* background-color: black; */
-  position: absolute;
-  right: 52%;
-  top:24%;
-  width:120px;
-  height: 60px;
-  z-index: 101;
-  font-weight: 600;
-
-
-}
-
-#gameOver {
-  position: absolute;
-  top: 40%;
-  right: 17%;
-  font-size: 90px;
-  font-weight: 500;
-}
 .glass{
   width:100vw;
   height:3vh;

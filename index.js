@@ -48,8 +48,8 @@ clickSound.loop = false
 let count = 0;
 
 function randomizer(){
-  booSound.play();
   startBtn.classList.add('displayNone');
+
 
   while (count < tiles) {
     
@@ -127,7 +127,7 @@ let setCount;
 let startBtn = document.querySelector(".startBtn");
 
 
-startBtn.addEventListener("click", randomizer);
+startBtn.addEventListener("click", startSequence);
 
 
 
@@ -207,6 +207,7 @@ function checkAnswers(){
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
     document.querySelector("#countdown").innerHTML = `You Win!`;
     startBtn.classList.remove('displayNone');
+    booSound.play();
     
     
 
@@ -312,8 +313,6 @@ function ghostMoves(){
 
 function startSequence(){
   ghostMoves();
-  const buttonGone = document.getElementById("initalStart")
-  buttonGone.classList.add("hidden");
   const elem = document.getElementById("animate");
   setTimeout(function(){
     elem.style.backgroundImage="url(/images/boo-bubble.png)";
@@ -339,10 +338,13 @@ let speech =["Welcome to our game MEMORY!","your goal is to memorize","EVERYTHIN
     setTimeout(function(){
       document.getElementById("animate").style.display = "none";
       clickSound.play();
+      clicks++;
+      
     }, 200); 
   }
   else{
-    document.getElementsByClassName("startBtn").style.backgroundColor = "red";
+    randomizer();
+    clickSound.play();
   }
   
 }
