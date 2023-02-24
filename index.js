@@ -2,7 +2,7 @@ let mainBox = document.querySelector("#mainBox");
 // mainBox.style.pointerEvents = "none";
 let sizeOfGrid = 35;
 // let level = 1; 
-let background = new Audio('/sounds/background.mp3');
+let background = new Audio('./sounds/background.mp3');
 background.loop = true;
 // background.play();
 
@@ -38,10 +38,11 @@ let playerArray = [];
 //when user click start
 //items are not clickable until
 //randomizer will run
-let booSound = new Audio('/sounds/booSound.mp3');
+// let booSound = new Audio('/sounds/booSound.mp3');
+let booSound = new Audio('./sounds/booSound.mp3')
 booSound.loop = false;
 
-let clickSound = new Audio('/sounds/click.mp3');
+let clickSound = new Audio('./sounds/click.mp3');
 clickSound.loop = false 
 
 
@@ -193,7 +194,7 @@ function checkAnswers(){
           allAnswers.push('false')
         }
   }
-  let gameOver = new Audio('/sounds/gameOver1.mp3');
+  let gameOver = new Audio('./sounds/gameOver1.mp3');
   gameOver.loop = false;
 
   if(allAnswers.includes('false')){
@@ -207,16 +208,16 @@ function checkAnswers(){
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
     document.querySelector("#countdown").innerHTML = `You Win!`;
     startBtn.classList.remove('displayNone');
+    //boo plays everytime level pass
     booSound.play();
-    
-    
-
-    resetAll();
-    // randomizer();
+  
+   
     counter = 5;
     tracker = 0;
     numOftiles = numOftiles + 1;
     setCount= undefined;
+    resetAll();
+    // randomizer();
     
     // displayTiles();
     // checkCounter();
@@ -313,17 +314,28 @@ function ghostMoves(){
 
 function startSequence(){
   ghostMoves();
+  //button click
+  //layer appears ->have a insivible layer, that spans the whole page
+  //when clicked is triggers next sequence,
+  //dissapears after last speeach bubble and start button can be pressed again
+
+  //make it so the gohst dooesnt dissappear until the start has been clicked
+
+
   const elem = document.getElementById("animate");
   setTimeout(function(){
-    elem.style.backgroundImage="url(/images/boo-bubble.png)";
+    elem.style.backgroundImage="url(./images/boo-bubble.png)";
     booSound.play();
   }, 500); 
    setTimeout(function(){
   document.getElementById("textBubble").innerText = "Boo, did I scare you?"
   document.body.addEventListener('click', talk)
+  
   }, 1000); 
+  
  
 }
+
 let clicks = 0;
 function talk(){
 
