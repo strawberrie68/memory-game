@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memory game</title>
     
@@ -10,8 +11,9 @@
   </head>
 
   <body>
+  
 
-    
+    <div class="unClickableLayer">
     <h1 class="title">Memory Game</h1>
 
     
@@ -45,16 +47,22 @@
           <div id="animate">
             <div id="textBubble"></div>
            </div>
+           <span id="continue" class="displayNone blink">Click to continue</span>
+           
          </div>
  
+      
     <div class="btns-desk-top">
       <button class="btn resetBtn">Reset</button>
-      
+      <span class="material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+        volume_mute
+        </span>
        
     </div>
 
 
     <div class="glass"></div>
+  </div>
     <script src="./index.js"></script>
   </body>
 </html>

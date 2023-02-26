@@ -2,9 +2,14 @@ let mainBox = document.querySelector("#mainBox");
 // mainBox.style.pointerEvents = "none";
 let sizeOfGrid = 35;
 // let level = 1; 
-let background = new Audio('./sounds/background.mp3');
-background.loop = true;
-// background.play();
+let background = new Audio('./sounds/title.mp3');
+background.volume=0.1;
+background.play();
+
+
+function togglePlay() {
+  return background.paused ? background.play() : background.pause();
+};
 
 
 localStorage.setItem("level", 1);
@@ -207,7 +212,8 @@ function checkAnswers(){
     tiles = Number(tiles) + 1
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
     document.querySelector("#countdown").innerHTML = `You Win!`;
-    startBtn.classList.remove('displayNone');
+    
+    // startBtn.classList.remove('displayNone');
     //boo plays everytime level pass
     booSound.play();
   
@@ -311,14 +317,27 @@ function ghostMoves(){
 }
 
 
+let continueNum = 0
+function countineCounter(){
+  if(continueNum === 0){
+    document.getElementById("continue").classList.remove("displayNone")
+    continueNum++
+  }else{
+    document.getElementById("continue").classList.add("displayNone")
+  }
+}
 
 function startSequence(){
+
+  document.querySelector(".startBtn").classList.add("displayNone")
+  document.querySelector(".unClickableLayer").style.zIndex = "10000"
   ghostMoves();
+  countineCounter();
+  
   //button click
   //layer appears ->have a insivible layer, that spans the whole page
   //when clicked is triggers next sequence,
   //dissapears after last speeach bubble and start button can be pressed again
-
   //make it so the gohst dooesnt dissappear until the start has been clicked
 
 
@@ -329,7 +348,7 @@ function startSequence(){
   }, 500); 
    setTimeout(function(){
   document.getElementById("textBubble").innerText = "Boo, did I scare you?"
-  document.body.addEventListener('click', talk)
+  document.querySelector(".unClickableLayer").addEventListener('click', talk)
   
   }, 1000); 
   
@@ -341,22 +360,31 @@ function talk(){
 
 let speech =["Welcome to our game MEMORY!","your goal is to memorize","EVERYTHING","if you don't, you lose", "click start to begin"];
 
-  if(clicks <4){
+  if(clicks <3){
     clicks += 1;
     clickSound.play();
-  
+    console.log(clicks);
+    
   document.getElementById("textBubble").innerText = speech[clicks];
-  }else if (clicks === 4){
-    setTimeout(function(){
-      document.getElementById("animate").style.display = "none";
-      clickSound.play();
-      clicks++;
-      
-    }, 200); 
+  }else if(clicks ===3){
+    document.querySelector(".startBtn").classList.remove("displayNone");
+    clicks ++;
+    clickSound.play();
+    console.log(clicks);
+    document.getElementById("textBubble").innerText = speech[clicks];
+    document.getElementById("continue").classList.add("displayNone")
   }
   else{
+    document.getElementById("animate").style.display = "none";
+    document.querySelector(".unClickableLayer").style.zIndex = "1"
     randomizer();
     clickSound.play();
+    document.getElementById("mainBox").style.pointerEvents = "auto";
   }
   
 }
+
+let blink = document.getElementById('continue');
+      setInterval(function() {
+        blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+      }, 3000);
