@@ -211,11 +211,18 @@ function checkAnswers(){
     document.querySelector(".level").innerHTML= ` Level:  ${level}`
     tiles = Number(tiles) + 1
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+    
     document.querySelector("#countdown").innerHTML = `You Win!`;
     
+    goBAM();
+  //   document.getElementById("goGhost").classList.remove("displayNone");
+  // document.getElementById("goGhost").addEventListener('click', ()=>{
+  //   document.getElementById("goGhost").classList.add("displayNone");})
+
     // startBtn.classList.remove('displayNone');
     //boo plays everytime level pass
     booSound.play();
+    
   
    
     counter = 5;
@@ -327,6 +334,8 @@ function countineCounter(){
   }
 }
 
+
+
 function startSequence(){
 
   document.querySelector(".startBtn").classList.add("displayNone")
@@ -351,8 +360,19 @@ function startSequence(){
   document.querySelector(".unClickableLayer").addEventListener('click', talk)
   
   }, 1000); 
-  
+
+
  
+}
+
+function goBAM(){
+  
+   document.getElementById("goGhost").classList.remove("displayNone");
+  
+  setTimeout(function(){
+    document.getElementById("goGhost").classList.add("displayNone");
+    booSound.play();
+  }, 400); 
 }
 
 let clicks = 0;
@@ -388,3 +408,4 @@ let blink = document.getElementById('continue');
       setInterval(function() {
         blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
       }, 3000);
+
