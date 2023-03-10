@@ -4,7 +4,7 @@
 let background = new Audio();
 function playAudio(){
   background.src = './sounds/title.mp3';
-  background.autoplay = true;
+  background.autoplay = false;
   background.loop = true;
   background.volume=0.1;
 
@@ -43,31 +43,33 @@ let playerArray = [];
 
 
 let sizeOfGrid = 35;
-// if(localStorage.getItem('level').length ===0){
-//   localStorage.setItem("level", 1);
-// }
+// let level = 5; 
+if(localStorage.getItem('level') === null){
+  localStorage.setItem("level", 1);
+}
 
   //localStorage.setItem("level", 1);
 
 
-//let level = localStorage.getItem("level");
+let level = localStorage.getItem("level");
 // document.querySelector(".level").innerHTML= ` Level:  ${level}`
-document.querySelector(".level").innerHTML= ` Level: 1`
+document.querySelector(".level").innerHTML= ` Level: ${level}`
 
 // create tiles ------------------------------------
 //  number of tiles : start from 5. increment it by 1 each time
 // I hard coded the number but it should be incremented by 1 when the player moves to the next level. 
 //from 5 (level 1) to 20 (level 16)
 
-// if(localStorage.getItem('tiles').length === 0){
-//   localStorage.setItem("tiles", 5);
-// }
+if(localStorage.getItem('tiles') === null){
+  localStorage.setItem("tiles", 5);
+}
 //let numOftiles = localStorage.getItem("tiles");
 
-//localStorage.setItem("tiles", 5);
+// localStorage.setItem("tiles", 5);
 
-//let tiles = localStorage.getItem("tiles");
-document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / 5  `
+let tiles = localStorage.getItem("tiles");
+// let tiles = 5;
+document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
 for (let i = 0; i < sizeOfGrid; i++) {
   mainBox.innerHTML += `<div id=${i} onclick="mark(event)" class="box"></div>`
 }
@@ -180,7 +182,8 @@ function talk(){
 
 let count = 0;
 function randomizer(){
-  while (count < numOftiles) {
+  // while (count < numOftiles) {
+    while (count < Number(tiles)) {
     // a number will be randomly picked nth times and store them in an array 
     // each title has an unique number so that we can keep track of which tile is clicked 
     let randomNumber = Math.floor(Math.random() * sizeOfGrid)
@@ -248,14 +251,14 @@ function mark(event) {
   if (!playerArray.includes(event.target.id) && tracker < tiles) {
     playerArray.push((event.target.id))
     event.target.classList.add("yellow")
-    //document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
+    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
     tracker++
   
   }else if(playerArray.includes(event.target.id)){
     playerArray.splice(playerArray.indexOf(event.target.id), 1);
     event.target.classList.remove("yellow");
     tracker--
-    //document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
+    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
   }
 
   if(tracker == tiles){
@@ -284,8 +287,8 @@ function checkAnswers(){
     gameOver.play();
     document.getElementById("gameOver").innerHTML = "G A ME O V E R";
     document.querySelector(".main-resetBtn").style.display = 'block';
-    // localStorage.setItem("level", 1);
-    // localStorage.setItem("tiles", 5);
+    localStorage.setItem("level", 1);
+    localStorage.setItem("tiles", 5);
 
   }else{
     countDown.innerHTML = `You Win!`;
@@ -296,7 +299,8 @@ function checkAnswers(){
  
     counter = 5;
     tracker = 0;
-    numOftiles = numOftiles + 1;
+    tiles = Number(tiles) + 1;
+    // numOftiles = numOftiles + 1;
     setCount= undefined;
     goBAM();
     resetAll();
@@ -307,13 +311,13 @@ function checkAnswers(){
 function goBAM(){
   
   level = Number(level) + 1
-  // localStorage.setItem("level", level);
+  localStorage.setItem("level", level);
   
     document.querySelector(".level").innerHTML= ` Level:  ${level}`
-    tiles = Number(tiles) + 1
+   
 
       
-  //localStorage.setItem("tiles", tiles);
+  localStorage.setItem("tiles", tiles);
 
     document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
     
@@ -349,16 +353,16 @@ function resetAll (){
 
 // reset 
 document.querySelector('.main-resetBtn').addEventListener('click', ()=>{
-  // localStorage.setItem("tiles", 5);
-  // localStorage.setItem('level', 1);
+  localStorage.setItem("tiles", 5);
+  localStorage.setItem('level', 1);
   location.reload();
 })
 
 
 document.querySelectorAll('.resetBtn').forEach(x=>{
 x.addEventListener('click', ()=>{
-  // localStorage.setItem("tiles", 5);
-  // localStorage.setItem('level', 1);
+  localStorage.setItem("tiles", 5);
+  localStorage.setItem('level', 1);
   location.reload();
 })
 })
