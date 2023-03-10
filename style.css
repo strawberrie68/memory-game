@@ -30,6 +30,10 @@ body{
 
 }
 
+.sound-icon{
+  cursor: default;
+}
+
 
 #initalStart{
   position: absolute;
@@ -101,6 +105,7 @@ body{
   height: 60px;
   z-index: 101;
   font-weight: 600;
+  font-size: 1.5em;
 }
 
 #gameOver {
@@ -140,9 +145,7 @@ body{
   background-color:yellow;
 }
 
-.displayNone{
-  display:none;
-}
+
 /* .grey {
   filter: grayscale(.5)
 } */
@@ -311,7 +314,11 @@ body{
 } */
 
 
-.startBtn{
+
+
+
+
+.main-resetBtn{
   pointer-events: auto;
   position:absolute;
   top:50%;
@@ -324,10 +331,11 @@ body{
     align-items: center;
     font-size:25px;
     height:70px;
-    background-color:#FA3861;
-
+    background-color:#ffa601;
+    display:none;
 
 }
+
 
 .winOrLose{
   position:absolute;
@@ -397,9 +405,7 @@ body{
   background-color:yellow;
 }
 
-.displayNone{
-  display:none;
-}
+
 
 #continue{
   position: absolute;
@@ -438,4 +444,48 @@ body{
   background-color:#005f03;
   position:absolute;
   bottom:0;
+}
+
+
+.startBtn{
+  pointer-events: auto;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width: 100px;
+  margin-top: 10px;
+display:block;
+    justify-content: center;
+    align-items: center;
+    font-size:25px;
+    height:70px;
+    background-color:#FA3861;
+  
+}
+
+.playBtn{
+  pointer-events: auto;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width: 100px;
+  margin-top: 10px;
+
+    justify-content: center;
+    align-items: center;
+    font-size:25px;
+    height:70px;
+    background-color:#FA3861;
+    
+  display:none;
+}
+
+.displayNone{
+  display:none;
+}
+
+.display{
+  display:block;
 }

@@ -14,12 +14,13 @@
   
 
     <div class="unClickableLayer">
-    <h1 class="title">Memory Game</h1>
+   
 
     
     <div id="#charaterContainer">
-      <div class="bigBox">
       
+      <div class="bigBox">
+        <h1 class="title">Memory Game</h1>
           <div class="headerBox">
             
             <div class="heading">
@@ -30,6 +31,9 @@
             
           <div class="btns-phone">
             <button class="btn resetBtn">Reset</button>
+            <span class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+              volume_mute
+              </span>
       
             <!-- <button class="btn doneBtn">Done</button> -->
       
@@ -38,6 +42,9 @@
         
             <div id="mainBox">
               <button class="btn startBtn">Start</button>
+              <button class="btn playBtn">Play</button>
+              <!-- <button class="btn playBtn">Play</button> -->
+              <button class="btn main-resetBtn">Reset</button>
               <h2 class="winOrLose"></h2>
             </div> 
             <div id="gameOver"></div>
@@ -56,11 +63,13 @@
       
     <div class="btns-desk-top">
       <button class="btn resetBtn">Reset</button>
-      <span class="material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+      <span class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
         volume_mute
         </span>
        
     </div>
+
+    
 
 
     <div class="glass"></div>

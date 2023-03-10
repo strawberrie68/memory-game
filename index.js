@@ -1,80 +1,243 @@
-let mainBox = document.querySelector("#mainBox");
-// mainBox.style.pointerEvents = "none";
-let sizeOfGrid = 35;
-// let level = 1; 
-let background = new Audio('./sounds/title.mp3');
-background.volume=0.1;
-background.play();
+
+
+// Background Music setting ---------------------
+let background = new Audio();
+function playAudio(){
+  background.src = './sounds/title.mp3';
+  background.autoplay = true;
+  background.loop = true;
+  background.volume=0.1;
+
+}
+
+playAudio()
+
+function pauseAudio(){
+  background.pause();
+ }
+
+
 
 
 function togglePlay() {
-  return background.paused ? background.play() : background.pause();
+  return background.paused ? playAudio() : pauseAudio();
 };
 
-
-localStorage.setItem("level", 1);
-let level = localStorage.getItem("level");
-document.querySelector(".level").innerHTML= ` Level:  ${level}`
-// create tiles
-//  I gave an id to each div tag
-for (let i = 0; i < sizeOfGrid; i++) {
-  mainBox.innerHTML += `<div id=${i} onclick="mark(event)" class="box"></div>`
-}
-
-//***
-//  number of tiles : start from 5. increment it by 1 each time
-// I hard coded the number but it should be incremented by 1 when the player moves to the next level. 
-
-//the shorest array length is 5 (level 1)
-//the longest array length is 20 (level 16)
-//need to save the tiles to a variable-->how tho
-let numOftiles = 5
-localStorage.setItem("tiles", numOftiles);
-let tiles = localStorage.getItem("tiles");
-document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
-
-
-// rendomly choose numbers. *Make sure that there is no duplicate numbers
-let randomArray = [];
-let playerArray = [];
-
-
-
-//when user click start
-//items are not clickable until
-//randomizer will run
-// let booSound = new Audio('/sounds/booSound.mp3');
 let booSound = new Audio('./sounds/booSound.mp3')
 booSound.loop = false;
 
 let clickSound = new Audio('./sounds/click.mp3');
 clickSound.loop = false 
 
+// let numOftiles = 5
+// document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+
+
+// Basic default settings ------------------------
+let mainBox = document.querySelector("#mainBox");
+// let startBtn = document.querySelector('.startBtn');
+// let playBtn = document.querySelector('.playBtn');
+let countDown =  document.querySelector("#countdown");
+let randomArray = [];
+let playerArray = [];
+
+
+let sizeOfGrid = 35;
+// if(localStorage.getItem('level').length ===0){
+//   localStorage.setItem("level", 1);
+// }
+
+  //localStorage.setItem("level", 1);
+
+
+//let level = localStorage.getItem("level");
+// document.querySelector(".level").innerHTML= ` Level:  ${level}`
+document.querySelector(".level").innerHTML= ` Level: 1`
+
+// create tiles ------------------------------------
+//  number of tiles : start from 5. increment it by 1 each time
+// I hard coded the number but it should be incremented by 1 when the player moves to the next level. 
+//from 5 (level 1) to 20 (level 16)
+
+// if(localStorage.getItem('tiles').length === 0){
+//   localStorage.setItem("tiles", 5);
+// }
+//let numOftiles = localStorage.getItem("tiles");
+
+//localStorage.setItem("tiles", 5);
+
+//let tiles = localStorage.getItem("tiles");
+document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / 5  `
+for (let i = 0; i < sizeOfGrid; i++) {
+  mainBox.innerHTML += `<div id=${i} onclick="mark(event)" class="box"></div>`
+}
+
+
+ 
+  //Start Button click ------------------------------------------------------------------------------------
+  //when clicked is triggers next sequence,
+  //dissapears after last speeach bubble and start button can be pressed again
+  //make it so the gohst dooesnt dissappear until the start has been clicked
+  
+let counter = 5 ;
+let setCount;
+
+
+let startBtn = document.querySelector('.startBtn');
+startBtn.addEventListener('click',startSequence )
+
+
+let clickToContinueMessage;
+
+function startSequence(){
+  console.log('start button clicked')
+ startBtn.style.display= 'none';
+  document.querySelector(".unClickableLayer").style.zIndex = "10000"
+
+  const elem = document.getElementById("animate");
+  setTimeout(function(){
+    elem.style.backgroundImage="url(./images/boo-bubble.png)";
+    booSound.play();
+  }, 500); 
+   setTimeout(function(){
+  document.getElementById("textBubble").innerText = "Boo, did I scare you?"
+  document.querySelector(".unClickableLayer").addEventListener('click', talk)
+  
+  }, 1000); 
+  
+  ghostMoves();
+  clickToContinueMessage = setInterval( countineCounter, 1500);
+
+}
+
+// function to make the ghost move
+function ghostMoves(){
+  let id = null;
+  const elem = document.getElementById("animate");
+  let pos = 0;
+  clearInterval(id);
+  id = setInterval(frame, 5);
+  function frame(){
+    if( pos == 50){
+      clearInterval(id);
+    }else{
+      pos++;
+      elem.style.right = pos + "px";
+      
+    }
+  }
+}
+
+
+let opacity = true;
+let blink = document.getElementById('continue');
+// function to make the message 'Click to continue' 
+function countineCounter(){
+   blink.style.display='block';
+    opacity === true? blink.style.opacity = 1: blink.style.opacity = 0;
+    opacity = !opacity; 
+ 
+}
+
+
+// function to display messages
+let clicks = 1;
+let playBtn = document.querySelector('.playBtn');
+
+function talk(){
+ console.log('clicks ' , clicks)
+  let speech =["Welcome to our game MEMORY!","your goal is to memorize","EVERYTHING","if you don't, you lose", "click start to begin"];
+    if(clicks <3){
+      clicks++;
+      console.log(clicks)
+      clickSound.play();
+      document.getElementById("textBubble").innerText = speech[clicks];
+    }else if(clicks == 3){
+      clicks++;
+      clickSound.play();
+      document.getElementById("textBubble").innerText = speech[clicks];
+      playBtn.style.display = 'block';
+    }else if(clicks == 4){
+      blink.style.display='none';
+      clearInterval(clickToContinueMessage)
+      
+      document.getElementById("continue").classList.add("displayNone")
+      playBtn.addEventListener("click", function(){
+        this.style.display = "none";
+        console.log('playBtn clicked!', this)
+        randomizer()
+      })
+      
+      document.getElementById("animate").style.display = "none";
+      document.querySelector(".unClickableLayer").style.zIndex = "1"
+      mainBox.style.pointerEvents = "auto";
+      // document.querySelector('.playBtn').addEventListener('click', randomizer)
+    }
+  }
+
+//generate randome tiles --------------------------------------------------------
+
 
 let count = 0;
-
 function randomizer(){
-  startBtn.classList.add('displayNone');
-
-
-  while (count < tiles) {
-    
+  while (count < numOftiles) {
     // a number will be randomly picked nth times and store them in an array 
     // each title has an unique number so that we can keep track of which tile is clicked 
     let randomNumber = Math.floor(Math.random() * sizeOfGrid)
-   
     if (!randomArray.includes(randomNumber)) {
       randomArray.push(randomNumber)
       count++
     }
     checkCounter()
-
+    
   }
 
 }
 
 
-// add an event listener to keep track of which titles  player clicked 
+
+
+function checkCounter(){
+  countDown.innerHTML = `Count Down:  ${counter} `;
+     if(setCount == undefined){
+        setCount = setInterval(countdown, 1000);
+     }
+
+     displayTiles()
+
+}
+
+//2. display count down while those tiles are flashing so players know how much time left. 
+
+function countdown(){
+  if(counter <= 0){
+    countDown.innerHTML = `Select Tiles! `;
+     clearInterval(setCount);
+     removeTileColor();
+  }else{
+    countDown.innerHTML = `Count Down:  ${counter-1} `;
+      counter = counter -1 
+  }
+}
+
+
+//3. after 5secs the tile will go back to defualt colour 
+function removeTileColor(){
+  for(let i=0; i<randomArray.length; i++){
+  document.getElementById(randomArray[i]).classList.remove("yellow")
+ }
+}
+
+
+function displayTiles(){
+  for(let i=0; i<randomArray.length; i++){
+       document.getElementById(randomArray[i]).classList.add("yellow")
+  }
+}
+
+
+
+// add an event listener to keep track of which titles player clicked -------------------------
 
 let tracker = 0;
 let boxes = document.querySelectorAll(".box")
@@ -85,15 +248,14 @@ function mark(event) {
   if (!playerArray.includes(event.target.id) && tracker < tiles) {
     playerArray.push((event.target.id))
     event.target.classList.add("yellow")
-    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
+    //document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker + 1}/ ${tiles}`
     tracker++
   
   }else if(playerArray.includes(event.target.id)){
- 
     playerArray.splice(playerArray.indexOf(event.target.id), 1);
     event.target.classList.remove("yellow");
     tracker--
-    document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
+    //document.querySelector(".tileCount").innerHTML = `Tiles: ${tracker}/ ${tiles}`
   }
 
   if(tracker == tiles){
@@ -104,88 +266,7 @@ function mark(event) {
 }
 
 
-// reset 
-
-
-document.querySelectorAll('.resetBtn').forEach(x=>{
-    x.addEventListener('click', ()=>{
-      document.querySelector('.startBtn').disabled = false;
-  
-
-      location.reload();
-
-    })
-})
-
-// document.querySelector(".resetBtn").addEventListener("click", () => {
-//   document.querySelector('.startBtn').disabled = false;
-  
-
-//   location.reload();
-// })
-
- 
-
-//level 1 all five numbers will light up the respective tile all the same time for 5sec. As the level goes up, the number of tile will be incremented by 1. 
-
-let counter = 5 ;
-let setCount;
-let startBtn = document.querySelector(".startBtn");
-
-
-startBtn.addEventListener("click", startSequence);
-
-
-
-function checkCounter(){
-  document.querySelector("#countdown").innerHTML = `Count Down:  ${counter} `;
-  displayTiles()
-     if(setCount == undefined){
-        setCount = setInterval(countdown, 1000);
-     }
-
-}
-
-
-//2. display count down while those tiles are flashing so players know how much time left. 
-
-function countdown(){
-    if(counter <= 0){
-        document.querySelector("#countdown").innerHTML = `Select Tiles! `;
-       clearInterval(setCount);
-       removeTileColor();
-    }else{
-        document.querySelector("#countdown").innerHTML = `Count Down:  ${counter-1} `;
-        counter = counter -1 
-    }
-}
-
-
-
-function displayTiles(){
-    // mainBox.style.pointerEvents = "none";
-    for(let i=0; i<randomArray.length; i++){
-         document.getElementById(randomArray[i]).classList.add("yellow")
-    }
-}
-
-
-//3. after 5secs the tile will go back to defualt colour 
-
-function removeTileColor(){
-    // mainBox.style.pointerEvents = "unset";
-    // document.querySelector('.startBtn').disabled = true;
-    for(let i=0; i<randomArray.length; i++){
-    document.getElementById(randomArray[i]).classList.remove("yellow")
-   }
-}
-
-
-//4. the computer waits for the player to click 5 tiles
-
 function checkAnswers(){
-  // mainBox.style.pointerEvents = "none";
-  // document.querySelector('.startBtn').disabled = false;
   let allAnswers = []
     if(playerArray.length === randomArray.length){
   
@@ -193,66 +274,94 @@ function checkAnswers(){
   let sortedArray2 = randomArray.sort((a,b)=>a-b);
   
   for(let i=0; i<sortedArray1.length; i++){
-        if(sortedArray1[i] == sortedArray2[i] ){
-          allAnswers.push('true')
-        }else{
-          allAnswers.push('false')
-        }
+        sortedArray1[i] == sortedArray2[i] ?  allAnswers.push('true') :  allAnswers.push('false')
   }
   let gameOver = new Audio('./sounds/gameOver1.mp3');
   gameOver.loop = false;
 
   if(allAnswers.includes('false')){
-    document.querySelector("#countdown").innerHTML = `You Lose`;
+    countDown.innerHTML = `You Lose`;
     gameOver.play();
     document.getElementById("gameOver").innerHTML = "G A ME O V E R";
-  }else{
-    level = Number(level) + 1
-    document.querySelector(".level").innerHTML= ` Level:  ${level}`
-    tiles = Number(tiles) + 1
-    document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
-    
-    document.querySelector("#countdown").innerHTML = `You Win!`;
-    
-    goBAM();
-  //   document.getElementById("goGhost").classList.remove("displayNone");
-  // document.getElementById("goGhost").addEventListener('click', ()=>{
-  //   document.getElementById("goGhost").classList.add("displayNone");})
+    document.querySelector(".main-resetBtn").style.display = 'block';
+    // localStorage.setItem("level", 1);
+    // localStorage.setItem("tiles", 5);
 
-    // startBtn.classList.remove('displayNone');
-    //boo plays everytime level pass
-    booSound.play();
+  }else{
+    countDown.innerHTML = `You Win!`;
     
-  
-   
+  playBtn.style.display = 'block';
+
+  document.querySelector('.playBtn').innerHTML = 'Next level';
+ 
     counter = 5;
     tracker = 0;
     numOftiles = numOftiles + 1;
     setCount= undefined;
+    goBAM();
     resetAll();
-    // randomizer();
-    
-    // displayTiles();
-    // checkCounter();
   }}
 
 }
 
+function goBAM(){
+  
+  level = Number(level) + 1
+  // localStorage.setItem("level", level);
+  
+    document.querySelector(".level").innerHTML= ` Level:  ${level}`
+    tiles = Number(tiles) + 1
 
+      
+  //localStorage.setItem("tiles", tiles);
 
+    document.querySelector(".tileCount").innerHTML = `Tiles: \u00A0\u00A0\u00A0\u00A0 / ${tiles}  `
+    
+  
+  
+    console.log('start button is back')
+  
+   document.getElementById("goGhost").classList.remove("displayNone");
+  
+  setTimeout(function(){
+    document.getElementById("goGhost").classList.add("displayNone");
+    booSound.play();
+  }, 600); 
+}
 
 function resetAll (){
+
+    randomArray = [];
+    playerArray = [];
+    count = 0
+   
+   
   boxes.forEach((box) => {
     box.classList.remove("yellow")
     // box.classList.remove("grey") 
 })
 
-    randomArray = [];
-    playerArray = [];
-    count = 0
-    startBtn.innerHTML = 'Next level'
-   
+
+
 }
+
+
+
+// reset 
+document.querySelector('.main-resetBtn').addEventListener('click', ()=>{
+  // localStorage.setItem("tiles", 5);
+  // localStorage.setItem('level', 1);
+  location.reload();
+})
+
+
+document.querySelectorAll('.resetBtn').forEach(x=>{
+x.addEventListener('click', ()=>{
+  // localStorage.setItem("tiles", 5);
+  // localStorage.setItem('level', 1);
+  location.reload();
+})
+})
 
 
 
@@ -305,107 +414,4 @@ function resetAll (){
 
 
 
-
-function ghostMoves(){
-  let id = null;
-  const elem = document.getElementById("animate");
-  let pos = 0;
-  clearInterval(id);
-  id = setInterval(frame, 5);
-  function frame(){
-    if( pos == 50){
-      clearInterval(id);
-    }else{
-      pos++;
-      elem.style.right = pos + "px";
-      
-    }
-  }
-}
-
-
-let continueNum = 0
-function countineCounter(){
-  if(continueNum === 0){
-    document.getElementById("continue").classList.remove("displayNone")
-    continueNum++
-  }else{
-    document.getElementById("continue").classList.add("displayNone")
-  }
-}
-
-
-
-function startSequence(){
-
-  document.querySelector(".startBtn").classList.add("displayNone")
-  document.querySelector(".unClickableLayer").style.zIndex = "10000"
-  ghostMoves();
-  countineCounter();
-  
-  //button click
-  //layer appears ->have a insivible layer, that spans the whole page
-  //when clicked is triggers next sequence,
-  //dissapears after last speeach bubble and start button can be pressed again
-  //make it so the gohst dooesnt dissappear until the start has been clicked
-
-
-  const elem = document.getElementById("animate");
-  setTimeout(function(){
-    elem.style.backgroundImage="url(./images/boo-bubble.png)";
-    booSound.play();
-  }, 500); 
-   setTimeout(function(){
-  document.getElementById("textBubble").innerText = "Boo, did I scare you?"
-  document.querySelector(".unClickableLayer").addEventListener('click', talk)
-  
-  }, 1000); 
-
-
- 
-}
-
-function goBAM(){
-  
-   document.getElementById("goGhost").classList.remove("displayNone");
-  
-  setTimeout(function(){
-    document.getElementById("goGhost").classList.add("displayNone");
-    booSound.play();
-  }, 400); 
-}
-
-let clicks = 0;
-function talk(){
-
-let speech =["Welcome to our game MEMORY!","your goal is to memorize","EVERYTHING","if you don't, you lose", "click start to begin"];
-
-  if(clicks <3){
-    clicks += 1;
-    clickSound.play();
-    console.log(clicks);
-    
-  document.getElementById("textBubble").innerText = speech[clicks];
-  }else if(clicks ===3){
-    document.querySelector(".startBtn").classList.remove("displayNone");
-    clicks ++;
-    clickSound.play();
-    console.log(clicks);
-    document.getElementById("textBubble").innerText = speech[clicks];
-    document.getElementById("continue").classList.add("displayNone")
-  }
-  else{
-    document.getElementById("animate").style.display = "none";
-    document.querySelector(".unClickableLayer").style.zIndex = "1"
-    randomizer();
-    clickSound.play();
-    document.getElementById("mainBox").style.pointerEvents = "auto";
-  }
-  
-}
-
-let blink = document.getElementById('continue');
-      setInterval(function() {
-        blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
-      }, 3000);
 
