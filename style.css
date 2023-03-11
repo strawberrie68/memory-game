@@ -1,5 +1,4 @@
 * {
-  /* font-family: 'Montserrat', sans-serif; */
   font-family: pixeBoy;
   color: black;
   box-sizing: border-box;
@@ -20,8 +19,18 @@ body {
   overflow: hidden;
 }
 
+/* sound */
+
 .sound-icon {
   cursor: default;
+}
+
+#soundOn {
+  display: block;
+}
+
+#soundOff {
+  display: none;
 }
 
 #initalStart {
@@ -62,7 +71,7 @@ body {
   left: 31%;
   top: 20%;
   bottom: 21px;
-  background-size: 900px;
+  background-size: 500px;
   z-index: 1000;
   background-repeat: no-repeat;
 }
@@ -98,28 +107,6 @@ body {
   /* font-size: 90px; */
   font-size: 60px;
   font-weight: 500;
-}
-
-@media only screen and (min-width: 769px) {
-  .btns-desk-top {
-    position: absolute;
-    left: 2%;
-    bottom: 10%;
-    display: block;
-  }
-
-  .btns-phone {
-    display: none;
-  }
-
-  .resetBtn {
-    width: 100px;
-    height: 60px;
-  }
-}
-
-.yellow {
-  background-color: yellow;
 }
 
 .heading {
@@ -184,21 +171,6 @@ body {
   box-shadow: 0px 3px 0px 1px #005f03;
   z-index: 100;
   border-radius: 5px;
-}
-
-@media only screen and (min-width: 768px) {
-  #mainBox {
-    grid-template-columns: repeat(5, 70px);
-    grid-template-rows: repeat(7, 70px);
-  }
-
-  .headerBox {
-    padding: 6% 0%;
-  }
-
-  .title {
-    padding-top: 3%;
-  }
 }
 
 #countdown {
@@ -272,28 +244,6 @@ body {
   border: 1px solid black;
 }
 
-@media only screen and (min-width: 769px) {
-  .btns-desk-top {
-    position: absolute;
-    left: 2%;
-    bottom: 10%;
-    display: block;
-  }
-
-  .btns-phone {
-    display: none;
-  }
-
-  .resetBtn {
-    width: 100px;
-    height: 60px;
-  }
-}
-
-.yellow {
-  background-color: yellow;
-}
-
 #continue {
   position: absolute;
   top: 80%;
@@ -355,10 +305,50 @@ body {
   display: none;
 }
 
+.yellow {
+  background-color: yellow;
+}
+
 .displayNone {
   display: none;
 }
 
 .display {
   display: block;
+}
+
+@media only screen and (min-width: 768px) {
+  .sound-icon {
+    text-align: center;
+    margin-bottom: 15%;
+  }
+
+  #mainBox {
+    grid-template-columns: repeat(5, 70px);
+    grid-template-rows: repeat(7, 70px);
+  }
+
+  .headerBox {
+    padding: 6% 0%;
+  }
+
+  .title {
+    padding-top: 3%;
+  }
+
+  .btns-desk-top {
+    position: absolute;
+    left: 2%;
+    bottom: 10%;
+    display: block;
+  }
+
+  .btns-phone {
+    display: none;
+  }
+
+  .resetBtn {
+    width: 100px;
+    height: 60px;
+  }
 }

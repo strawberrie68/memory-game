@@ -1,20 +1,28 @@
 // Background Music setting ---------------------
 let background = new Audio();
+let soundOnIcon = document.querySelectorAll("#soundOn")
+let soundOffIcon = document.querySelectorAll("#soundOff")
+
 function playAudio() {
   background.src = "./sounds/title.mp3";
   background.autoplay = true;
   background.loop = true;
   background.volume = 0.1;
+  soundOnIcon.forEach(icon=>{icon.style.display = 'block'})
+  soundOffIcon.forEach(icon=>{icon.style.display = 'none'})
 }
 
 playAudio();
 
 function pauseAudio() {
   background.pause();
+  soundOnIcon.forEach(icon=>{icon.style.display = 'none'})
+  soundOffIcon.forEach(icon=>{icon.style.display = 'block'})
 }
-
+let soundOn = true;
 function togglePlay() {
-  return background.paused ? playAudio() : pauseAudio();
+  soundOn = !soundOn
+  return soundOn ? playAudio() : pauseAudio();
 }
 
 let booSound = new Audio("./sounds/booSound.mp3");
@@ -22,6 +30,9 @@ booSound.loop = false;
 
 let clickSound = new Audio("./sounds/click.mp3");
 clickSound.loop = false;
+
+let levelUpSound = new Audio("./sounds/coin-upaif-14631.mp3");
+levelUpSound.loop = false;
 
 // Basic default settings ------------------------
 let mainBox = document.querySelector("#mainBox");
@@ -123,7 +134,7 @@ function talk() {
     "your goal is to memorize",
     "EVERYTHING",
     "if you don't, you lose",
-    "click start to begin",
+    "click play to begin",
   ];
   if (clicks <= 3) {
     
@@ -250,6 +261,7 @@ function checkAnswers() {
       countDown.innerHTML = `You Win!`;
       playBtn.style.display = "block";
       document.querySelector(".playBtn").innerHTML = "Next level";
+      levelUpSound.play();
       counter = 5;
       tracker = 0;
       setCount = undefined;
@@ -262,7 +274,7 @@ function checkAnswers() {
 function goBAM() {
   setTimeout(function () {
     document.getElementById("goGhost").classList.add("displayNone");
-    booSound.play();
+  
   }, 600);
 }
 

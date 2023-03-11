@@ -7,6 +7,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memory game</title>
 
@@ -26,13 +28,21 @@
             <div id="countdown">&nbsp;</div>
 
             <div class="btns-phone">
+              <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+                volume_up
+                </span>
+                <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+                  volume_off
+                  </span>
               <button class="btn resetBtn">Reset</button>
-              <span
+            
+              <!-- <span
                 class="sound-icon material-symbols-outlined volume material-icons md-60"
                 onClick="togglePlay()"
               >
                 volume_mute
-              </span>
+              </span> -->
+            
             </div>
           </div>
 
@@ -52,13 +62,20 @@
       </div>
 
       <div class="btns-desk-top">
+        <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+          volume_up
+          </span>
+          <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+            volume_off
+            </span>
         <button class="btn resetBtn">Reset</button>
-        <span
+        <!-- <span
           class="sound-icon material-symbols-outlined volume material-icons md-60"
           onClick="togglePlay()"
         >
           volume_mute
-        </span>
+        </span> -->
+      
       </div>
 
       <div class="glass"></div>
