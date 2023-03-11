@@ -2,7 +2,7 @@
 let background = new Audio();
 function playAudio() {
   background.src = "./sounds/title.mp3";
-  background.autoplay = false;
+  background.autoplay = true;
   background.loop = true;
   background.volume = 0.1;
 }
@@ -113,7 +113,7 @@ function countineCounter() {
 }
 
 // function to display messages
-let clicks = 1;
+let clicks = 0;
 let playBtn = document.querySelector(".playBtn");
 
 function talk() {
@@ -125,16 +125,18 @@ function talk() {
     "if you don't, you lose",
     "click start to begin",
   ];
-  if (clicks < 3) {
-    clicks++;
+  if (clicks <= 3) {
+    
     clickSound.play();
     document.getElementById("textBubble").innerText = speech[clicks];
-  } else if (clicks == 3) {
     clicks++;
+  } else if (clicks == 4) {
+   
     clickSound.play();
     document.getElementById("textBubble").innerText = speech[clicks];
     playBtn.style.display = "block";
-  } else if (clicks == 4) {
+    clicks++;
+  } else if (clicks == 5) {
     blink.style.display = "none";
     clearInterval(clickToContinueMessage);
     document.getElementById("continue").classList.add("displayNone");
