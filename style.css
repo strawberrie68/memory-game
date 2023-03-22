@@ -363,3 +363,48 @@ body {
   width: 100%;
   z-index: 100000;
 } */
+
+
+@media only screen and (max-device-width: 350px) {
+  .bigBox {
+    width: 80%;
+    height:100vh;
+    bottom: -15%;
+  }
+  #mainBox {
+    grid-template-columns: repeat(5, 42px);
+  }
+  #animate{
+    width:260px;
+    height:260px;
+    background-size: 260px;
+    top:65%;
+    left:20%;
+}
+  #textBubble {
+    position: absolute;
+    right: 52%;
+    top: 24%;
+    width: 80px;
+    height: 40px;
+    z-index: 101;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+.startBtn {
+  top:40%;
+}
+
+#continue {
+  top: 50%;
+  left: 18%;
+  width: 300px;
+}
+
+#gameOver {
+  font-size: 45px;
+  right: 6%;
+}
+ 
+}
