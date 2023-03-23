@@ -142,7 +142,7 @@ function talk() {
     clicks++;
   } else if(clicks == 2 ){
     clickSound.play();
-    document.getElementById("textBubble").style.font= "bold 2.3em pixeBoy,serif"
+    document.getElementById("textBubble").style.font= "bold 2em pixeBoy,serif"
     document.getElementById("textBubble").innerText = speech[clicks];
     clicks++;
   } else if(clicks == 3){

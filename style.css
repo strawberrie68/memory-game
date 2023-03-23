@@ -406,5 +406,8 @@ body {
   font-size: 45px;
   right: 6%;
 }
+.glass {
+  height: 8vh;
+}
  
 }
