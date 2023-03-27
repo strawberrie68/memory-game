@@ -132,13 +132,22 @@ function talk() {
   let speech = [
     "Welcome to our game MEMORY!",
     "your goal is to memorize",
-    "EVERYTHING",
+    "EVERY   THING",
     "if you don't, you lose",
     "click play to begin",
   ];
-  if (clicks <= 3) {
-    
+  if (clicks < 2) {
     clickSound.play();
+    document.getElementById("textBubble").innerText = speech[clicks];
+    clicks++;
+  } else if(clicks == 2 ){
+    clickSound.play();
+    document.getElementById("textBubble").style.font= "bold 2em pixeBoy,serif"
+    document.getElementById("textBubble").innerText = speech[clicks];
+    clicks++;
+  } else if(clicks == 3){
+    clickSound.play();
+    document.getElementById("textBubble").style.font = "bold 1.5em pixeBoy"
     document.getElementById("textBubble").innerText = speech[clicks];
     clicks++;
   } else if (clicks == 4) {
