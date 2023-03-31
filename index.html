@@ -33,12 +33,16 @@
             <div id="countdown">&nbsp;</div>
 
             <div class="btns-phone">
-              <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+              <div onclick="togglePlay(true)">
+              <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60">
                 volume_up
                 </span>
-                <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
+              </div>
+              <div onclick="togglePlay(false)">
+                <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60">
                   volume_off
                   </span>
+                </div>
               <button class="btn resetBtn">Reset</button>
             
               <!-- <span
@@ -67,12 +71,16 @@
       </div>
 
       <div class="btns-desk-top">
-        <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
-          volume_up
-          </span>
-          <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60" onClick="togglePlay()">
-            volume_off
+        <div onclick="togglePlay(true)">
+          <span id="soundOn" class="sound-icon material-symbols-outlined volume material-icons md-60">
+            volume_up
             </span>
+          </div>
+          <div onclick="togglePlay(false)">
+            <span id="soundOff"  class="sound-icon material-symbols-outlined volume material-icons md-60">
+              volume_off
+              </span>
+            </div>
         <button class="btn resetBtn">Reset</button>
         <!-- <span
           class="sound-icon material-symbols-outlined volume material-icons md-60"

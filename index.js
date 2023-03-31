@@ -3,6 +3,26 @@ let background = new Audio();
 let soundOnIcon = document.querySelectorAll("#soundOn")
 let soundOffIcon = document.querySelectorAll("#soundOff")
 
+const playBG = setTimeout(audio, 3000);
+
+function audio(){
+  background.src = "./sounds/title.mp3";
+  background.autoplay = true;
+  background.loop = true;
+  background.volume = 0.1;
+  console.log('audio is played')
+}
+
+
+
+
+
+
+function togglePlay(soundOn) {
+  console.log('soundOn is', soundOn)
+  return soundOn == true ? pauseAudio(): playAudio();
+}
+
 function playAudio() {
   background.src = "./sounds/title.mp3";
   background.autoplay = true;
@@ -10,20 +30,19 @@ function playAudio() {
   background.volume = 0.1;
   soundOnIcon.forEach(icon=>{icon.style.display = 'block'})
   soundOffIcon.forEach(icon=>{icon.style.display = 'none'})
+  console.log('backgroun played')
 }
-
-playAudio();
 
 function pauseAudio() {
   background.pause();
   soundOnIcon.forEach(icon=>{icon.style.display = 'none'})
   soundOffIcon.forEach(icon=>{icon.style.display = 'block'})
+  console.log('backgroun paused')
 }
-let soundOn = true;
-function togglePlay() {
-  soundOn = !soundOn
-  return soundOn ? playAudio() : pauseAudio();
-}
+
+
+
+
 
 let booSound = new Audio("./sounds/booSound.mp3");
 booSound.loop = false;

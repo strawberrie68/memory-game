@@ -247,10 +247,11 @@ body {
 
 #continue {
   position: absolute;
-  top: 80%;
+  top: 48%;
   right: 42%;
-  color: rgb(255, 255, 255);
-  text-shadow: 2px 1.5px rgb(63, 61, 61);
+  color: rgb(146 99 4);
+  border:2px solid black;
+  /* text-shadow: 3px 1.5px rgb(3, 3, 3); */
   font-size: 30px;
   transition: 0.4s;
 }
