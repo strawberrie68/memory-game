@@ -1,10 +1,10 @@
-# 🎂 Memory Game
+# 🕹️ Memory Game
 
-A simple game to test your memory
+A simple game inspired by Nintendo to test your memory
 
 
 
-[![](FlourBakery.gif)](https://strawberrie68.github.io/memory-game/)
+[![](MemoryGame.gif)](https://strawberrie68.github.io/memory-game/)
 
 
 [
@@ -46,8 +46,6 @@ Go to Link
 <kbd>
 🎯 Try Out Game
 </kbd>](https://strawberrie68.github.io/memory-game/)
-replace "REACT_APP_SERVER_URL" with backend link ie https://localhost:3000/
-npm install 
-npm start
+
 
 
